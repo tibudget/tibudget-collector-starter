@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tibudget</groupId>
+    <artifactId>tibu-collector-starter</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Tibu Collector Starter</name>
+    <description>Official starter project for building a Tibu collector.</description>
+
+    <properties>
+        <!-- Tibu -->
+        <tibu.api.version>0.66</tibu.api.version>
+        <tibu.utils.version>0.26</tibu.utils.version>
+        <tibu.test-utils.version>0.7</tibu.test-utils.version>
+
+        <!-- Encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Java -->
+        <java.version>21</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+
+        <!-- Android -->
+        <android.compile.sdk>35</android.compile.sdk>
+        <android.min.api>26</android.min.api>
+        <android.jar>${env.ANDROID_HOME}/platforms/android-${android.compile.sdk}/android.jar</android.jar>
+
+    </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/tibudget/tibudget-collector-starter.git</connection>
+        <developerConnection>scm:git:https://github.com/tibudget/tibudget-collector-starter.git</developerConnection>
+        <url>https://github.com/tibudget/tibudget-collector-starter</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>CC0 1.0 Universal</name>
+            <url>https://creativecommons.org/publicdomain/zero/1.0/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- The mandatory Tibu API, provided by the Tibu mobile app -->
+        <dependency>
+            <groupId>com.tibudget</groupId>
+            <artifactId>tibudget-api</artifactId>
+            <version>${tibu.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Optional utils provided by Tibu to make it easier and faster to build your collector -->
+        <dependency>
+            <groupId>com.tibudget</groupId>
+            <artifactId>tibudget-collector-utils</artifactId>
+            <version>${tibu.utils.version}</version>
+        </dependency>
+
+        <!-- Optional utils provided by Tibu to test your collector -->
+        <dependency>
+            <groupId>com.tibudget</groupId>
+            <artifactId>tibudget-collector-test-utils</artifactId>
+            <version>${tibu.test-utils.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/.gitkeep</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

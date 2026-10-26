@@ -1,0 +1,21 @@
+# Maven build output
+/target/
+
+# IDE settings
+/.idea/
+*.iml
+/.vscode/
+/.classpath
+/.project
+/.settings/
+/.playwright-mcp/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Logs and operating system files
+*.log
+.DS_Store
+Thumbs.db
