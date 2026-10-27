@@ -18,6 +18,7 @@ These rules apply to humans and coding agents working in this repository.
 - Write code for human maintainers first. The code must be easy to understand for developers who may not be fluent in
   English and may not know the whole project.
 - Preserve existing comments and Javadoc unless they are outdated, inaccurate, or no longer reflect the actual behavior of the code.
+- Use term 'collect', not 'collection'
 - Use simple English in names, comments, Javadoc, validation messages and documentation. Avoid uncommon words,
   abbreviations and unnecessarily technical wording when a simpler formulation exists.
 - Prefer explicit and straightforward code over clever abstractions, compact tricks or complex constructs.

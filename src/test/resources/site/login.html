@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <title>Maison démo · Espace client TiBudget</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="/assets/app.js" defer></script>
+</head>
+<body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <header class="site-header">
+        <a class="brand" href="/fr">
+            maison démo<span>LA BOUTIQUE DU QUOTIDIEN</span>
+        </a>
+        <div class="header-actions">
+            <nav class="languages" aria-label="Langue">
+                                <a href="/fr/connexion"
+                   lang="fr" hreflang="fr" aria-current="true">Français</a>
+                                <a href="/en/connexion"
+                   lang="en" hreflang="en" >English</a>
+                                <a href="/es/connexion"
+                   lang="es" hreflang="es" >Español</a>
+                            </nav>
+            <span class="muted">Boutique de test pour TiBudget</span>        </div>
+    </header>
+    <main id="contenu"><section class="login-layout">
+    <div class="welcome">
+        <p class="eyebrow">VOTRE QUOTIDIEN, EN MIEUX</p>
+        <h1>Bienvenue chez vous.</h1>
+        <p>Vos achats, vos petits avantages et tous vos documents, au même endroit.</p>
+        <div class="decoration" aria-hidden="true">m.</div>
+    </div>
+    <div class="panel login-panel">
+        <p class="eyebrow">ESPACE CLIENT</p>
+        <h2>Se connecter</h2>
+        <p class="muted">Retrouvez vos commandes et votre fidélité.</p>
+                <form action="/fr/connexion" method="post">
+            <input type="hidden" name="csrf" value="test-csrf">
+                            <label for="login">Login</label>
+                <input id="login" name="login" type="text" autocomplete="username" required>
+                <label for="password">Mot de passe</label>
+                <div class="password">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    <button type="button" id="toggle-password" aria-controls="password" aria-pressed="false"
+                            data-show="Afficher" data-hide="Masquer" hidden>Afficher</button>
+                </div>
+                <label class="checkbox"><input type="checkbox" name="with_otp" value="1"> With OTP code 1234</label>
+                        <button class="primary" type="submit">Me connecter</button>
+        </form>
+                    <aside class="demo">
+                <strong>Compte de démonstration</strong><br>
+                Login : camille@example.test<br>
+                Mot de passe : demo1234
+            </aside>
+            </div>
+</section>
+</main>
+    <footer>Données entièrement fictives · TiBudget · Situation au 26/10/2026</footer>
+</body>
+</html>

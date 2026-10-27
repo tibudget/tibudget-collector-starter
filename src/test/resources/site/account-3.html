@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <title>Maison démo · Espace client TiBudget</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="/assets/app.js" defer></script>
+</head>
+<body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    <header class="site-header">
+        <a class="brand" href="/fr">
+            maison démo<span>LA BOUTIQUE DU QUOTIDIEN</span>
+        </a>
+        <div class="header-actions">
+            <nav class="languages" aria-label="Langue">
+                                <a href="/fr/compte?page=3"
+                   lang="fr" hreflang="fr" aria-current="true">Français</a>
+                                <a href="/en/compte?page=3"
+                   lang="en" hreflang="en" >English</a>
+                                <a href="/es/compte?page=3"
+                   lang="es" hreflang="es" >Español</a>
+                            </nav>
+                        <nav aria-label="Mon espace client">
+                <a href="/fr/compte">Mon espace client</a>
+                <form action="/fr/deconnexion" method="post">
+                    <input type="hidden" name="csrf" value="test-csrf">
+                    <button class="link-button">Déconnexion</button>
+                </form>
+            </nav>
+                    </div>
+    </header>
+    <main id="contenu"><!-- 2026-10-26-7884a7084ab073eeb437bc0d4f71dcd4027c2c805b24e4ce2357e742a232f72e --><section class="account-heading">
+    <div>
+        <p class="eyebrow">MON ESPACE CLIENT</p>
+        <h1>Bonjour Camille.</h1>
+        <p class="muted">Un œil sur vos achats et vos avantages.</p>
+    </div>
+    <span class="avatar" aria-label="Camille Martin">CM</span>
+</section>
+<section class="summary" aria-label="Avantages et abonnement">
+    <article class="panel loyalty">
+        <p class="eyebrow">MA FIDÉLITÉ · CARTE MD-004281</p>
+        <h2>1 280 <small>points</small></h2>
+        <p>Votre prochain avantage vous attend à 1 500 points.</p>
+        <progress value="1280" max="1500" aria-label="1280 points sur 1500">1280 / 1500</progress>
+        <p class="small">Encore 220 points pour en profiter.</p>
+        <figure class="loyalty-barcode"><img src="/assets/loyalty-code128.svg" alt="Code-barres de fidélité MD-004281 (CODE_128)" width="310" height="100"><figcaption>MD-004281</figcaption></figure>
+    </article>
+    <article class="panel subscription">
+        <div class="row">
+            <p class="eyebrow">MON ABONNEMENT</p>
+            <span class="badge paid">Actif</span>
+        </div>
+        <h2>Maison Plus <small>9,90 € / mois</small></h2>
+        <p>Livraison offerte et avantages exclusifs.</p>
+        <p class="small">
+            Dernier prélèvement :
+            <time datetime="2026-10-01">01/10/2026</time><br>
+            Prochain prélèvement :
+            <time datetime="2026-11-01">01/11/2026</time>
+        </p>
+        <a href="/fr/abonnement/factures">Mes factures d’abonnement</a>
+    </article>
+</section>
+<section aria-labelledby="orders-heading">
+    <div class="section-heading">
+        <h2 id="orders-heading">Mes commandes</h2>
+        <span class="muted">30 commandes · Page 3 sur 3</span>
+    </div>
+            <article class="panel order" data-order-id="TB-986" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-986</h3>
+                <time datetime="2026-04-08">08/04/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/notebook.jpg" alt="Carnet naturel" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Carnet naturel</strong>
+                    <span class="muted">Quantité : 2 · 12,00 € / article</span>
+                </div>
+                <strong>24,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 24,00 €</strong>
+            <span class="muted">Facture indisponible</span>        </div>
+    </article>
+        <article class="panel order" data-order-id="TB-985" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-985</h3>
+                <time datetime="2026-03-30">30/03/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/mug.jpg" alt="Tasse en céramique" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Tasse en céramique</strong>
+                    <span class="muted">Quantité : 1 · 18,00 € / article</span>
+                </div>
+                <strong>18,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 18,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-985.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-984" data-status="cancelled">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-984</h3>
+                <time datetime="2026-03-21">21/03/2026</time>
+            </div>
+            <span class="badge cancelled">Annulée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/bag.jpg" alt="Sac du quotidien" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Sac du quotidien</strong>
+                    <span class="muted">Quantité : 1 · 39,00 € / article</span>
+                </div>
+                <strong>39,00 €</strong>
+            </li>
+                        <li>
+                                    <img src="/assets/notebook.jpg" alt="Carnet naturel" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Carnet naturel</strong>
+                    <span class="muted">Quantité : 1 · 12,00 € / article</span>
+                </div>
+                <strong>12,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 51,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-984.pdf">Télécharger la facture annulée (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-983" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-983</h3>
+                <time datetime="2026-03-12">12/03/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/mug.jpg" alt="Tasse en céramique" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Tasse en céramique</strong>
+                    <span class="muted">Quantité : 2 · 18,00 € / article</span>
+                </div>
+                <strong>36,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 36,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-983.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-982" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-982</h3>
+                <time datetime="2026-03-03">03/03/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/mug.jpg" alt="Tasse en céramique" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Tasse en céramique</strong>
+                    <span class="muted">Quantité : 2 · 18,00 € / article</span>
+                </div>
+                <strong>36,00 €</strong>
+            </li>
+                        <li>
+                                    <img src="/assets/notebook.jpg" alt="Carnet naturel" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Carnet naturel</strong>
+                    <span class="muted">Quantité : 1 · 12,00 € / article</span>
+                </div>
+                <strong>12,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 48,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-982.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-981" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-981</h3>
+                <time datetime="2026-02-22">22/02/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                <span class="no-image">Photo indisponible</span>                <div class="item-name">
+                    <strong>Sac du quotidien</strong>
+                    <span class="muted">Quantité : 1 · 39,00 € / article</span>
+                </div>
+                <strong>39,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 39,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-981.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-980" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-980</h3>
+                <time datetime="2026-02-13">13/02/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/notebook.jpg" alt="Carnet naturel" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Carnet naturel</strong>
+                    <span class="muted">Quantité : 2 · 12,00 € / article</span>
+                </div>
+                <strong>24,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 24,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-980.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-979" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-979</h3>
+                <time datetime="2026-02-04">04/02/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/mug.jpg" alt="Tasse en céramique" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Tasse en céramique</strong>
+                    <span class="muted">Quantité : 1 · 18,00 € / article</span>
+                </div>
+                <strong>18,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 18,00 €</strong>
+            <span class="muted">Facture indisponible</span>        </div>
+    </article>
+        <article class="panel order" data-order-id="TB-978" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-978</h3>
+                <time datetime="2026-01-26">26/01/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/bag.jpg" alt="Sac du quotidien" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Sac du quotidien</strong>
+                    <span class="muted">Quantité : 1 · 39,00 € / article</span>
+                </div>
+                <strong>39,00 €</strong>
+            </li>
+                        <li>
+                                    <img src="/assets/notebook.jpg" alt="Carnet naturel" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Carnet naturel</strong>
+                    <span class="muted">Quantité : 1 · 12,00 € / article</span>
+                </div>
+                <strong>12,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 51,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-978.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <article class="panel order" data-order-id="TB-977" data-status="paid">
+        <header class="order-header">
+            <div>
+                <h3>Commande TB-977</h3>
+                <time datetime="2026-01-17">17/01/2026</time>
+            </div>
+            <span class="badge paid">Payée</span>
+        </header>
+        <ul class="items">
+                        <li>
+                                    <img src="/assets/mug.jpg" alt="Tasse en céramique" width="80" height="80" loading="lazy" decoding="async">
+                                <div class="item-name">
+                    <strong>Tasse en céramique</strong>
+                    <span class="muted">Quantité : 2 · 18,00 € / article</span>
+                </div>
+                <strong>36,00 €</strong>
+            </li>
+                    </ul>
+        <div class="order-footer">
+            <strong>Total TTC : 36,00 €</strong>
+                            <a class="invoice" href="/fr/factures/TB-977.pdf">Télécharger la facture (PDF)</a>
+                    </div>
+    </article>
+        <nav class="pagination" aria-label="Pages des commandes">
+                <a href="/fr/compte?page=1" >1</a>
+                <a href="/fr/compte?page=2" >2</a>
+                <a href="/fr/compte?page=3" aria-current="page">3</a>
+            </nav>
+</section>
+</main>
+    <footer>Données entièrement fictives · TiBudget · Situation au 26/10/2026</footer>
+</body>
+</html>

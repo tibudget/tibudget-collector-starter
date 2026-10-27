@@ -15,8 +15,8 @@
     <properties>
         <!-- Tibu -->
         <tibu.api.version>0.66</tibu.api.version>
-        <tibu.utils.version>0.26</tibu.utils.version>
-        <tibu.test-utils.version>0.7</tibu.test-utils.version>
+        <tibu.utils.version>0.27-SNAPSHOT</tibu.utils.version>
+        <tibu.test-utils.version>0.8-SNAPSHOT</tibu.test-utils.version>
 
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
