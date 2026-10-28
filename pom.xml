@@ -15,8 +15,8 @@
     <properties>
         <!-- Tibu -->
         <tibu.api.version>0.66</tibu.api.version>
-        <tibu.utils.version>0.27-SNAPSHOT</tibu.utils.version>
-        <tibu.test-utils.version>0.8-SNAPSHOT</tibu.test-utils.version>
+        <tibu.utils.version>0.28</tibu.utils.version>
+        <tibu.test-utils.version>0.10</tibu.test-utils.version>
 
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,6 +25,12 @@
         <!-- Java -->
         <java.version>21</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
+
+        <!-- Build output -->
+        <collector.version.code>1</collector.version.code>
+        <collector.default.locale>en</collector.default.locale>
+        <collector.vendor>Tibu</collector.vendor>
+        <r8.version>8.5.35</r8.version>
 
         <!-- Android -->
         <android.compile.sdk>35</android.compile.sdk>
@@ -55,10 +61,18 @@
         </repository>
     </repositories>
 
+    <!-- R8 is a build tool, not a collector dependency. -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>google</id>
+            <url>https://dl.google.com/dl/android/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <!-- The mandatory Tibu API, provided by the Tibu mobile app -->
         <dependency>
-            <groupId>com.tibudget</groupId>
+            <groupId>com.github.tibudget</groupId>
             <artifactId>tibudget-api</artifactId>
             <version>${tibu.api.version}</version>
             <scope>provided</scope>
@@ -66,14 +80,14 @@
 
         <!-- Optional utils provided by Tibu to make it easier and faster to build your collector -->
         <dependency>
-            <groupId>com.tibudget</groupId>
+            <groupId>com.github.tibudget</groupId>
             <artifactId>tibudget-collector-utils</artifactId>
             <version>${tibu.utils.version}</version>
         </dependency>
 
         <!-- Optional utils provided by Tibu to test your collector -->
         <dependency>
-            <groupId>com.tibudget</groupId>
+            <groupId>com.github.tibudget</groupId>
             <artifactId>tibudget-collector-test-utils</artifactId>
             <version>${tibu.test-utils.version}</version>
             <scope>test</scope>
@@ -101,11 +115,112 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
+                <!-- Assemblies need the project JAR during prepare-package. -->
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <excludes>
                         <exclude>**/.gitkeep</exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Specification-Title>Tibu Collector API</Specification-Title>
+                            <Specification-Version>${tibu.api.version}</Specification-Version>
+                            <Specification-Vendor>tibudget.com</Specification-Vendor>
+                            <Implementation-Title>${project.name}</Implementation-Title>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                            <Implementation-VersionCode>${collector.version.code}</Implementation-VersionCode>
+                            <Implementation-Vendor>${collector.vendor}</Implementation-Vendor>
+                            <TiBudget-DefaultLocale>${collector.default.locale}</TiBudget-DefaultLocale>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>prepare-r8-input</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-unpack.xml</descriptor>
+                                <descriptor>assembly-r8.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>assemble-collector</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly-tibu.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.4</version>
+                <executions>
+                    <execution>
+                        <id>dex-collector</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.android.tools.r8.R8</mainClass>
+                    <includePluginDependencies>true</includePluginDependencies>
+                    <executableDependency>
+                        <groupId>com.android.tools</groupId>
+                        <artifactId>r8</artifactId>
+                    </executableDependency>
+                    <arguments>
+                        <argument>--release</argument>
+                        <argument>--pg-conf</argument>
+                        <argument>${project.basedir}/proguard-rules.pro</argument>
+                        <argument>--lib</argument>
+                        <argument>${android.jar}</argument>
+                        <!-- Resolve host API references without adding its classes to the DEX. -->
+                        <argument>--lib</argument>
+                        <argument>${settings.localRepository}/com/github/tibudget/tibudget-api/${tibu.api.version}/tibudget-api-${tibu.api.version}.jar</argument>
+                        <argument>--output</argument>
+                        <argument>${project.build.directory}/${project.artifactId}-${project.version}-dex.jar</argument>
+                        <argument>${project.build.directory}/${project.artifactId}-${project.version}-jar-for-r8.jar</argument>
+                        <argument>--min-api</argument>
+                        <argument>${android.min.api}</argument>
+                    </arguments>
+                    <classpathScope>runtime</classpathScope>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.android.tools</groupId>
+                        <artifactId>r8</artifactId>
+                        <version>${r8.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

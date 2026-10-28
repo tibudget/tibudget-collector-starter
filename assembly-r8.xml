@@ -1,0 +1,31 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
+
+    <id>jar-for-r8</id>
+
+    <formats>
+        <format>jar</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <!-- Use the unpacked dependencies directory -->
+            <directory>${project.build.directory}/${project.artifactId}-${project.version}-unpack-dependencies</directory>
+            <outputDirectory>/</outputDirectory>
+
+            <includes>
+                <include>**/*.class</include>
+            </includes>
+
+            <excludes>
+                <!-- Android uses the base classes, not Java module or multi-release variants. -->
+                <exclude>META-INF/versions/**</exclude>
+                <exclude>module-info.class</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+
+</assembly>
