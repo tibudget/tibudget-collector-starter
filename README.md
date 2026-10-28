@@ -72,6 +72,8 @@ Do not reuse the starter values when publishing your own collector.
 
 ## Getting started
 
+Read [Implementing a Tibu collector](docs/getting-started.md) for the main implementation principles.
+
 The easiest way to create a collector is to clone this repository and progressively replace the demo implementation with your own.
 
 Start by:

@@ -29,7 +29,10 @@ public class StarterCollector extends AbstractCollectorPlugin {
     private static final String DEMO_COUNTERPARTY_UUID = UUID.nameUUIDFromBytes("tibu:maison-demo".getBytes(StandardCharsets.UTF_8)).toString();
 
     private static final String SINGLE_SUBSCRIPTION_ID = "maison-plus";
-    private Document accountPage;
+
+    // Where it starts
+    private Document customerAccountHomePage;
+
     private final List<CollectorPendingTransaction> subscriptionInvoices = new ArrayList<>();
     private LocalDate previousPageEndDate;
 
@@ -72,10 +75,19 @@ public class StarterCollector extends AbstractCollectorPlugin {
     @Override
     public boolean collect() throws CollectError, AccessDeny, TemporaryUnavailable, ConnectionFailure, ParameterError {
         try {
+            // Define a minimum interval between Internet request to avoid being blocked for spamming reasons
             setMinIntervalBetweenRequestInMs(200);
+
+            // Connect to the customer account
             signIn();
+
+            // Synchronize all accounts: purchases, loyalty, etc.
             synchronizeAccounts();
+
+            // Synchronize any recurring payments
             synchronizeRecurringPayments();
+
+            // Finally synchronize transactions (payments, purchases, transfers, etc.)
             return synchronizeTransactions();
         }
         catch (MustStopException e) {
@@ -91,11 +103,11 @@ public class StarterCollector extends AbstractCollectorPlugin {
      * For OpenID, see {@link #getOpenIdJSONConfiguration()} and {@link #initConnection(java.net.URI)}.
      */
     protected void signIn() throws CollectError, AccessDeny, TemporaryUnavailable, ConnectionFailure, ParameterError {
-        accountPage = get("/fr/compte");
-        if (accountPage.selectFirst(".account-heading") == null) {
+        customerAccountHomePage = get("/fr/compte");
+        if (customerAccountHomePage.selectFirst(".account-heading") == null) {
 
             // We are not connected, make sure the login form is present
-            required(accountPage, "form:has(input[name=login])");
+            required(customerAccountHomePage, "form:has(input[name=login])");
 
             // Fill in login form fields
             Map<String, String> fields = new HashMap<>();
@@ -106,8 +118,8 @@ public class StarterCollector extends AbstractCollectorPlugin {
             }
 
             // Submit the login form
-            accountPage = submitForm(accountPage, "form:has(input[name=login])", fields);
-            if (accountPage.selectFirst("input[name=otp]") != null) {
+            customerAccountHomePage = submitForm(customerAccountHomePage, "form:has(input[name=login])", fields);
+            if (customerAccountHomePage.selectFirst("input[name=otp]") != null) {
 
                 // The website requires an OTP code
                 if (otpProvider == null) {
@@ -123,14 +135,14 @@ public class StarterCollector extends AbstractCollectorPlugin {
                 }
 
                 // Submit the OTP code
-                accountPage = submitForm(accountPage, "form:has(input[name=otp])", Map.of("otp", code));
+                customerAccountHomePage = submitForm(customerAccountHomePage, "form:has(input[name=otp])", Map.of("otp", code));
 
-                if (accountPage.selectFirst(".account-heading") == null) {
+                if (customerAccountHomePage.selectFirst(".account-heading") == null) {
                     // OTP code has been refused
                     throw new AccessDeny("error.otp.code_refused");
                 }
             }
-            else if (accountPage.selectFirst(".account-heading") == null) {
+            else if (customerAccountHomePage.selectFirst(".account-heading") == null) {
                 // Login/password were wrong
                 throw new AccessDeny("error.login.fail");
             }
@@ -174,7 +186,7 @@ public class StarterCollector extends AbstractCollectorPlugin {
             shoppingAccount.setType(AccountDto.AccountDtoType.SHOPPING);
         }
 
-        Element loyalty = required(accountPage, ".loyalty");
+        Element loyalty = required(customerAccountHomePage, ".loyalty");
         Element progress = required(loyalty, "progress");
         int pointsStr = Integer.parseInt(progress.attr("value"));
         String cardNumber = required(loyalty, "figcaption").text();
@@ -221,7 +233,7 @@ public class StarterCollector extends AbstractCollectorPlugin {
         else if (!plan.getAccountUuid().equals(shoppingAccount.getUuid())){
             throw new CollectError("error.recurring_payments.wrong_account");
         }
-        Element subscription = required(accountPage, ".subscription");
+        Element subscription = required(customerAccountHomePage, ".subscription");
         // Set these values again in case the previous collector (if any) set it wrong
         plan.setLabel("Maison Plus");
         plan.setExpectedAmount(-CollectorUtils.elementSelectionToAmount(subscription, "h2 small", Locale.FRANCE).getAmount());
@@ -298,10 +310,10 @@ public class StarterCollector extends AbstractCollectorPlugin {
             previousPageEndDate = null;
 
             // Get the last page number for orders to get the oldest ones first
-            pageNumber = accountPage.select(".pagination a").stream().mapToInt(link -> Integer.parseInt(link.text())).max().orElseThrow();
+            pageNumber = customerAccountHomePage.select(".pagination a").stream().mapToInt(link -> Integer.parseInt(link.text())).max().orElseThrow();
 
             // Get the invoice page URL for recurring payments: we need a special treatment for those because they are not in the orders page
-            Document invoicesPage = get(required(accountPage, ".subscription a").attr("href"));
+            Document invoicesPage = get(required(customerAccountHomePage, ".subscription a").attr("href"));
             subscriptionInvoices.clear();
             for (Element invoice : invoicesPage.select("article[data-invoice-id]")) {
                 subscriptionInvoices.add(createCollectorPendingTransaction(invoice, "data-invoice-id"));
