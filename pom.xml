@@ -4,7 +4,7 @@
 
     <groupId>com.tibudget</groupId>
     <artifactId>tibu-collector-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Tibu Collector Starter</name>
@@ -41,7 +41,7 @@
         <connection>scm:git:https://github.com/tibudget/tibudget-collector-starter.git</connection>
         <developerConnection>scm:git:https://github.com/tibudget/tibudget-collector-starter.git</developerConnection>
         <url>https://github.com/tibudget/tibudget-collector-starter</url>
-        <tag>tibu-collector-starter-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
