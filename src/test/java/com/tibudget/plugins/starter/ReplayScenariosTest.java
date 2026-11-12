@@ -45,6 +45,7 @@ class ReplayScenariosTest {
 
         // 4) Check that the collect finishes.
         assertTrue(collector.collect());
+        offLineInternetProvider.assertReplayComplete();
 
         // 5) Compare the collected data with the expected result saved in the scenario directory.
         CollectorResultJson.assertMatches(new File(offLineInternetProvider.getReplayDir(), "collect.json"), collector);
