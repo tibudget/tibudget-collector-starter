@@ -64,7 +64,7 @@ public class StarterCollector extends AbstractCollectorPlugin {
     @Override
     public String getDomain() {
         // Must be the root of the domain
-        return "http://localhost:18743/";
+        return "https://tests.tibudget.com/";
     }
 
     /**

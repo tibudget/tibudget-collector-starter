@@ -30,11 +30,13 @@
         <collector.vendor>Tibu</collector.vendor>
         <r8.version>8.5.35</r8.version>
 
+        <!-- No need to deploy -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+
         <!-- Android -->
         <android.compile.sdk>35</android.compile.sdk>
         <android.min.api>26</android.min.api>
         <android.jar>${env.ANDROID_HOME}/platforms/android-${android.compile.sdk}/android.jar</android.jar>
-
     </properties>
 
     <scm>
@@ -144,6 +146,7 @@
                             <Implementation-VersionCode>${collector.version.code}</Implementation-VersionCode>
                             <Implementation-Vendor>${collector.vendor}</Implementation-Vendor>
                             <TiBudget-DefaultLocale>${collector.default.locale}</TiBudget-DefaultLocale>
+                            <TiBudget-Host-Permissions>tests.tibudget.com</TiBudget-Host-Permissions>
                         </manifestEntries>
                     </archive>
                 </configuration>
