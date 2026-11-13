@@ -1,6 +1,7 @@
 # Development rules
 
 These rules apply to humans and coding agents working in this repository.
+For the developer onboarding steps, follow [Create a collector](docs/create-collector.md).
 
 ## Scope and structure
 
@@ -12,6 +13,29 @@ These rules apply to humans and coding agents working in this repository.
 - When implementation begins, use the Tibu Collector API documentation and
   verified API contracts. Do not guess API behavior.
 - Preserve existing work and the existing license file.
+
+## Collector runtime rules
+
+- Request user data, such as a username or password, through member variables annotated with `@Input`.
+  For OpenID sign-in, implement `getOpenIdJSONConfiguration()` instead of requesting credentials through `@Input`.
+- All Internet access in collector code must go through the supplied `InternetProvider` or methods that use it.
+  Any other Internet access will be rejected. This restriction protects users.
+  Do not use separate HTTP clients, direct network connections, or library methods that bypass `InternetProvider`.
+- Request every authentication code through the supplied `OTPProvider`. It will try to retrieve the code automatically
+  or ask the user to enter it manually.
+  Always specify the channel used to send the code, such as email, SMS, or another channel.
+  Include the site's help message when one is available to guide the user.
+  Set the expected code pattern whenever it is known.
+- Collect transactions from oldest to newest. Save the collector state regularly so it can resume where it stopped
+  when asked to stop.
+  Use the collector settings to store its state, progress, and current stage for this purpose.
+  If transactions have changed since the last collect, retrieve them again so they are updated in Tibu.
+- Return precise and correct data. Consult the Tibu Collector API and DTO documentation to determine which information
+  to provide and how to fill each field, including the amount sign and transaction type. Do not guess field meanings or rules.
+- On error, throw the appropriate exception and describe the problem precisely to make debugging easier.
+  Log the information needed for a developer to find the cause of the problem.
+  Do not include sensitive information in error messages, logs, or other diagnostic data.
+- Use the supplied `PDFToolsProvider` to parse PDF files.
 
 ## Code and documentation
 
@@ -60,7 +84,10 @@ These rules apply to humans and coding agents working in this repository.
 
 ## Verification
 
-- Run `mvn verify` after build or code changes.
-- Add focused tests for new behavior when implementation begins. Do not add
+- Run `mvn verify` after build or code changes unless the requested workflow specifies a different validation process.
+- Add focused tests for new behavior unless the requested workflow excludes test creation. Do not add
   placeholder tests just to make the empty starter appear tested.
+- Run `TibuSimulator.main()` with the test classpath. It writes recordings under `src/test/resources/scenarios`,
+  HTML under `target/scenarios-html`, and local state under `target/`. Review these files for sensitive data before sharing or committing.
+- The simulator restores settings but not accounts or recurring payments. Account for this limitation when checking identity preservation.
 - Report what changed, what was verified, and any checks that could not run.

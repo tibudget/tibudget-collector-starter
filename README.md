@@ -72,21 +72,14 @@ Do not reuse the starter values when publishing your own collector.
 
 ## Getting started
 
-Read [Implementing a Tibu collector](docs/getting-started.md) for the main implementation principles.
+For AI-assisted development, follow [Create a collector with an AI agent](docs/create-collector.md), using this prompt: 
+``` 
+Read AGENTS.md and follow docs/create-collector.md to adapt this starter for customer account URL `<URL>` with Java package `<PACKAGE>`.
+```
 
 The easiest way to create a collector is to clone this repository and progressively replace the demo implementation with your own.
 
-Start by:
-
-1. Renaming the project, Maven artifact and Java package.
-2. Replacing the starter collector metadata, icon and resources.
-3. Defining the parameters required to connect to the target service.
-4. Implementing authentication and data retrieval.
-5. Creating accounts and collecting their transactions and related data using the Tibu Collector API.
-6. Adapting the tests with saved responses from the target service.
-7. Running `mvn verify` to validate the collector and its Android compatibility.
-
-The starter implementation intentionally covers several common collector features. Keep the examples that are useful for your collector and remove the ones you do not need.
+For old school developers, play with this starter, read the AGENTS.md and the javadoc of the API.
 
 ## Testing
 
@@ -103,7 +96,7 @@ Add live tests only when they provide a specific benefit that cannot be covered 
 
 ## Before publishing
 
-Before uploading a new version to Tibu:
+Before uploading a new version to [Tibu DEV](https://tibudget.com/dev/):
 
 1. Run `mvn verify`.
 2. Make sure all tests pass.
