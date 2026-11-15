@@ -432,23 +432,26 @@ public class StarterCollector extends AbstractCollectorPlugin {
         }
     }
 
-    /**
-     * Used by tests
-     */
+    public String getLogin() {
+        return login;
+    }
+
     public void setLogin(String login) {
         this.login = login;
     }
 
-    /**
-     * Used by tests
-     */
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * Used by tests
-     */
+    public boolean isWithOtp() {
+        return withOtp;
+    }
+
     public void setWithOtp(boolean withOtp) {
         this.withOtp = withOtp;
     }

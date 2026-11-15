@@ -14,7 +14,7 @@
         <!-- Tibu -->
         <tibu.api.version>0.66</tibu.api.version>
         <tibu.utils.version>0.28</tibu.utils.version>
-        <tibu.test-utils.version>0.10</tibu.test-utils.version>
+        <tibu.test-utils.version>0.13-SNAPSHOT</tibu.test-utils.version>
 
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,7 +87,7 @@
 
         <!-- Optional utils provided by Tibu to test your collector -->
         <dependency>
-            <groupId>com.github.tibudget</groupId>
+            <groupId>com.tibudget</groupId>
             <artifactId>tibudget-collector-test-utils</artifactId>
             <version>${tibu.test-utils.version}</version>
             <scope>test</scope>
@@ -183,6 +183,24 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.6.4</version>
                 <executions>
+                    <execution>
+                        <!-- Run the TibuSimulator with your Collector -->
+                        <id>simulate</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/java</executable>
+                            <classpathScope>test</classpathScope>
+                            <includePluginDependencies>false</includePluginDependencies>
+                            <inheritIo>true</inheritIo>
+                            <arguments combine.self="override">
+                                <argument>-cp</argument>
+                                <classpath/>
+                                <argument>com.tibudget.test.simulator.TibuSimulator</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>dex-collector</id>
                         <phase>prepare-package</phase>

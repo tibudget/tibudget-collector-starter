@@ -87,7 +87,9 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
 - Run `mvn verify` after build or code changes unless the requested workflow specifies a different validation process.
 - Add focused tests for new behavior unless the requested workflow excludes test creation. Do not add
   placeholder tests just to make the empty starter appear tested.
-- Run `TibuSimulator.main()` with the test classpath. It writes recordings under `src/test/resources/scenarios`,
-  HTML under `target/scenarios-html`, and local state under `target/`. Review these files for sensitive data before sharing or committing.
-- The simulator restores settings but not accounts or recurring payments. Account for this limitation when checking identity preservation.
+- Run `com.tibudget.test.simulator.TibuSimulator.main()` with the test classpath. The generic simulator stores local state,
+  downloads and optional HAR recordings under `target/com/tibudget/test/<collector-class>/`. Review these files for sensitive data before sharing or committing.
+- The simulator restores settings, accounts and recurring payments. Check that the collector preserves existing UUIDs and user choices when resuming.
+- Follow `docs/create-collector.md` to add headless validation, offline replay and stop/resume checks after the first live collect.
+  Keep raw recordings local; only add reviewed synthetic or anonymized scenarios to `src/test/resources/scenarios`.
 - Report what changed, what was verified, and any checks that could not run.
