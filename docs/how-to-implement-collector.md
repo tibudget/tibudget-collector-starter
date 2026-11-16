@@ -15,6 +15,9 @@ Follow [Update collector guides](update-collector.md) to update these rules and 
 - When implementation begins, use the Tibu Collector API documentation and
   verified API contracts. Do not guess API behavior.
 - Preserve existing work and the existing license file.
+- Use a PNG image for the collector logo, ideally a square of 256 × 256 pixels. The background may be transparent or colored.
+  Provide a square logo whenever possible. If it is not square, the Tibu application fits the complete logo within
+  a square when displaying it. The collector does not need to resize the image or add padding for this display.
 
 ## Collector runtime rules
 

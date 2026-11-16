@@ -24,6 +24,12 @@ and review the code against changed rules.
 - Inspect how to detect a valid session, failed sign-in and an expired session.
 - Analyze accounts, transactions, pagination, details and documents. Identify stable service IDs,
   date and amount formats, currencies, transaction states and how changed transactions can be found.
+- The user may provide a SIRET associated with the customer area. Use it as a starting point to find the counterparty UUID
+  through the public API: `https://api.tibudget.com/public/counterparties?fr-siret=12345678901234` (replace the example with the supplied SIRET).
+  The supplied SIRET may be incorrect, and one customer area may cover several SIRETs, for example supermarkets or franchises.
+  Cross-check the returned counterparty against seller details and SIRETs shown in the customer area and invoices before using its UUID.
+  When several sellers are involved, identify the counterparty for each relevant record instead of applying one UUID to the whole customer area.
+  If the lookup returns no match or the evidence is ambiguous, report the unresolved match and ask the user for clarification; do not guess a UUID.
 
 Before implementing, explain what the first version will support and what still needs investigation.
 OpenID collectors use the API's OpenID configuration; the current desktop and headless simulators do not support that sign-in flow.
@@ -31,6 +37,10 @@ Report this limitation and agree on a suitable host test when it applies.
 
 ## 2. Implement a first version
 
+- A supplied customer area URL may contain an identifier specific to the user's account or session.
+  Do not hardcode that identifier or URL in the collector. Start from a generic entry or sign-in URL when available,
+  follow the site's redirects and read account-specific URLs or identifiers from the authenticated navigation or responses.
+  Verify this flow on the site; do not assume that the supplied URL works for other users.
 - Give the collector its own project identity. Update the Maven coordinates, name and description in `pom.xml`.
   Replace the starter's SCM links and Git remotes with the collector repository, or remove them if no repository is available yet.
   The adapted project must no longer point to the starter as its own repository. Update the README for the collector and remove the license file.
