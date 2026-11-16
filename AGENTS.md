@@ -8,8 +8,8 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
 - Use Java 21 and Maven. Do not add Gradle support.
 - Keep the standard Maven layout: production code in `src/main/java`, tests in
   `src/test/java`, and resources in the matching `resources` directories.
-- Keep the project simple. Add dependencies, frameworks, or abstractions only
-  when a concrete requirement needs them.
+- Keep changes scoped to the request and keep the project simple. Preserve unrelated local changes and existing behavior unless changing them is explicitly required.
+  Add dependencies, frameworks, abstractions or broad refactors only when a concrete requirement of the requested change needs them.
 - When implementation begins, use the Tibu Collector API documentation and
   verified API contracts. Do not guess API behavior.
 - Preserve existing work and the existing license file.
@@ -91,9 +91,6 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
 - Comments, Javadoc and validation messages must be written in English.
 - Explain non-obvious behavior, business rules, assumptions and important implementation decisions. Do not add comments
   that simply restate the code.
-- Keep changes scoped to the request. Preserve unrelated local changes and existing behavior unless changing them is
-  explicitly required.
-- Do not introduce new dependencies, abstractions or broad refactors without a concrete need for the requested change.
 - Do not split code into additional methods or classes only to make methods shorter. Extract code when the resulting
   method has a clear responsibility, is reusable, or makes the main execution flow significantly easier to understand.
 - Prefer a slightly longer but linear and explicit implementation over a shorter implementation that requires more
@@ -101,8 +98,6 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
 - Use constructor injection for new dependencies.
 - Keep controllers focused on HTTP binding, authorization and responses. Put business logic in services and database
   queries in repositories.
-- Keep changes scoped to the request and preserve unrelated local changes. Do not introduce dependencies or broad
-  refactors without a concrete need.
 - Keep credentials and personal data out of source code, resources, logs, and
   committed test data.
 - Keep the README and `docs/` accurate as the project grows.
