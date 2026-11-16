@@ -27,6 +27,9 @@ Report this limitation and agree on a suitable host test when it applies.
 
 ## 2. Implement a first version
 
+- Give the collector its own project identity. Update the Maven coordinates, name and description in `pom.xml`.
+  Replace the starter's SCM links and Git remotes with the collector repository, or remove them if no repository is available yet.
+  The adapted project must no longer point to the starter as its own repository. Update the README for the collector and remove the license file.
 - Rename the Java package in production code and existing tests. Update `META-INF/services/com.tibudget.api.CollectorPlugin`
   to name the target collector. Replace metadata, domain permissions, resources and demo configuration for the target service.
 - Use the API version declared in `pom.xml` and its [API and DTO documentation](https://github.com/tibudget/tibudget-api).
