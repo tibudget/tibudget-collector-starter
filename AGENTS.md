@@ -30,6 +30,15 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
   when asked to stop.
   Use the collector settings to store its state, progress, and current stage for this purpose.
   If transactions have changed since the last collect, retrieve them again so they are updated in Tibu.
+- Write collected account, transaction, item and recurring payment labels in the provider website's language.
+  Preserve the site's original wording when available; generated labels must use the same language (for example, French for a French website).
+  Preserve existing labels changed by the user. This rule does not change the English requirement for code names and comments.
+- Identify recurring payments and installment schedules across invoices, documents and the customer area. Use schedules in invoices
+  or other contractual documents first to define each plan and its linked transactions, using the stated dates and amounts.
+  Then reconcile past and future debits found elsewhere: update matching installments with confirmed payment details and add only
+  debits not already represented. Prefer shared service references; otherwise cross-check the account, plan, dates and amounts.
+  Do not merge ambiguous matches or count the same expense both as installments and as a full invoice transaction.
+  Associate supporting invoices with the plan where the API allows it, and follow the API rules for attachments and transaction states.
 - Return precise and correct data. Consult the Tibu Collector API and DTO documentation to determine which information
   to provide and how to fill each field, including the amount sign and transaction type. Do not guess field meanings or rules.
 - When an invoice contains payment information, extract it and add it to the associated transactions whenever the Tibu Collector API supports it.
@@ -38,7 +47,7 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
 - On error, throw the appropriate exception and describe the problem precisely to make debugging easier.
   Log the information needed for a developer to find the cause of the problem.
   Do not include sensitive information in error messages, logs, or other diagnostic data.
-- Use the supplied `PDFToolsProvider` to parse PDF files.
+- Use the supplied `PDFToolsProvider` to parse PDF files; don't use an other way to parse PDF.
 
 ### Attached documents: mobile-readable formats
 
