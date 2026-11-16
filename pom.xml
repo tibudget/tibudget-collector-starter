@@ -12,9 +12,9 @@
 
     <properties>
         <!-- Tibu -->
-        <tibu.api.version>0.66</tibu.api.version>
-        <tibu.utils.version>0.28</tibu.utils.version>
-        <tibu.test-utils.version>0.13-SNAPSHOT</tibu.test-utils.version>
+        <tibu.api.version>0.69</tibu.api.version>
+        <tibu.utils.version>0.29</tibu.utils.version>
+        <tibu.test-utils.version>0.13</tibu.test-utils.version>
 
         <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -87,7 +87,7 @@
 
         <!-- Optional utils provided by Tibu to test your collector -->
         <dependency>
-            <groupId>com.tibudget</groupId>
+            <groupId>com.github.tibudget</groupId>
             <artifactId>tibudget-collector-test-utils</artifactId>
             <version>${tibu.test-utils.version}</version>
             <scope>test</scope>
