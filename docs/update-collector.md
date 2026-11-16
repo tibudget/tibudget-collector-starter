@@ -12,7 +12,15 @@ or merge the starter into the collector repository.
 Record the source commit so the update can be traced and all three files come from the same revision.
 If the source cannot be read, report the problem and do not replace the local guides with incomplete content.
 
-Read the source version of this update guide before proceeding. Keep the update limited to these files:
+Read the source version of this update guide before proceeding. Update the following dependencies in the collector's
+`pom.xml` to at least the versions used by the starter at the recorded source revision:
+
+- `com.github.tibudget:tibudget-api` (`tibu.api.version`)
+- `com.github.tibudget:tibudget-collector-utils` (`tibu.utils.version`), if used
+- `com.github.tibudget:tibudget-collector-test-utils` (`tibu.test-utils.version`), if used
+
+Keep newer versions already used by the collector and preserve the existing dependency scopes.
+Apart from these dependency version updates, keep the update limited to these files:
 
 - `docs/update-collector.md`
 - `docs/create-collector.md`
