@@ -33,8 +33,9 @@ Report this limitation and agree on a suitable host test when it applies.
   Follow `AGENTS.md` for inputs, Internet access, OTP, PDF parsing, state, IDs and UUIDs. Do not invent field rules or website behavior.
 - Implement sign-in, accounts, recurring payments when applicable, then transactions and documents.
   Keep the steps easy to follow. Explain any part that is not implemented yet.
-- A detected anti-bot challenge does not prove sign-in will fail. Continue the normal sign-in implementation,
-  report actual failures and leave unsupported challenges unhandled. Do not attempt to bypass protections.
+- **MUST continue past unsupported controls.** When a page or action declares a CAPTCHA, reCAPTCHA, anti-bot check or other control that the collector does not implement, ignore that unsupported step and execute the remaining normal workflow, including submitting the normal request. This is mandatory even when the control appears in the selected action's sequence.
+- **MUST NOT block preemptively.** The presence of an unsupported control must never, by itself, cause a local exception, an early return, a skipped submission, a failed collect or a request for user intervention. Do not infer server rejection from page markup or action metadata. Report a rejection only when the actual server response establishes it.
+- An optional informational log may state: `Unsupported reCAPTCHA step detected; ignoring this step and continuing the normal request.` Do not generate fake challenge results, claim that a challenge succeeded or implement a protection bypass. Continue handling supported authentication steps, including email or SMS codes through `OTPProvider`.
 - Use the generic `com.tibudget.test.simulator.TibuSimulator` supplied by test-utils.
   It discovers the collector through the service registration; do not create a collector-specific launcher or hardcode credentials.
 - Replace or remove demo-specific tests as the starter is adapted. Add focused tests for implemented behavior;

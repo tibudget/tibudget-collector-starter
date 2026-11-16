@@ -32,10 +32,26 @@ For the developer onboarding steps, follow [Create a collector](docs/create-coll
   If transactions have changed since the last collect, retrieve them again so they are updated in Tibu.
 - Return precise and correct data. Consult the Tibu Collector API and DTO documentation to determine which information
   to provide and how to fill each field, including the amount sign and transaction type. Do not guess field meanings or rules.
+- When an invoice contains payment information, extract it and add it to the associated transactions whenever the Tibu Collector API supports it.
+  This includes the card number or visible card digits, and the SEPA mandate reference used for payment.
+  Preserve the information as shown in the invoice; do not guess missing or masked details. Follow the API and DTO documentation to choose the correct fields.
 - On error, throw the appropriate exception and describe the problem precisely to make debugging easier.
   Log the information needed for a developer to find the cause of the problem.
   Do not include sensitive information in error messages, logs, or other diagnostic data.
 - Use the supplied `PDFToolsProvider` to parse PDF files.
+
+### Attached documents: mobile-readable formats
+
+- Attached documents MUST be readable in the mobile application. Use PDF or a supported image format; plain text is an acceptable fallback when it preserves the complete document content in a readable form.
+- HTML and other formats that the mobile application cannot display MUST NOT be attached as-is. Convert them to a supported format before creating the `FileDto`. Changing the file extension or MIME type is not conversion.
+- Preserve all invoice information during conversion, including seller details, invoice reference, dates, items, amounts, taxes and payment information. Verify the actual output format and readable content before attaching it.
+- Prefer a conversion tool supplied by the host API when available. Conversion must work in the collector's mobile runtime; a desktop-only browser, shell command or simulator feature is not a valid runtime solution. If conversion is unavailable, report the document limitation explicitly instead of attaching an unreadable file.
+
+### Unsupported controls: mandatory behavior
+
+- **MUST continue past unsupported controls.** When a page or action declares a CAPTCHA, reCAPTCHA, anti-bot check or other control that the collector does not implement, ignore that unsupported step and execute the remaining normal workflow, including submitting the normal request. This is mandatory even when the control appears in the selected action's sequence.
+- **MUST NOT block preemptively.** The presence of an unsupported control must never, by itself, cause a local exception, an early return, a skipped submission, a failed collect or a request for user intervention. Do not infer server rejection from page markup or action metadata. Report a rejection only when the actual server response establishes it.
+- An optional informational log may state: `Unsupported reCAPTCHA step detected; ignoring this step and continuing the normal request.` Do not generate fake challenge results, claim that a challenge succeeded or implement a protection bypass. Continue handling supported authentication steps, including email or SMS codes through `OTPProvider`.
 
 ## Code and documentation
 
