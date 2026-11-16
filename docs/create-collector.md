@@ -1,11 +1,15 @@
 # Create your first collector
 
 This guide helps you adapt the starter with an AI agent. You need the customer account URL,
-the target Java package, Java 21 and Maven. Read [AGENTS.md](../AGENTS.md) first.
+the target Java package, Java 21 and Maven. Developers and AI agents must first read
+[Collector implementation rules](how-to-implement-collector.md) and [AGENTS.md](../AGENTS.md) for rules specific to this collector.
 
 The developer signs in and checks the meaning of the collected data. The agent inspects the site,
 implements the collector and uses the simulator reports to find and fix problems.
 A successful HTTP request or a green report alone does not prove that the data is correct.
+
+For an existing collector, follow [Update collector guides](update-collector.md) to update the shared guides
+and review the code against changed rules.
 
 ## 1. Understand the site
 
@@ -33,16 +37,15 @@ Report this limitation and agree on a suitable host test when it applies.
 - Rename the Java package in production code and existing tests. Update `META-INF/services/com.tibudget.api.CollectorPlugin`
   to name the target collector. Replace metadata, domain permissions, resources and demo configuration for the target service.
 - Use the API version declared in `pom.xml` and its [API and DTO documentation](https://github.com/tibudget/tibudget-api).
-  Follow `AGENTS.md` for inputs, Internet access, OTP, PDF parsing, state, IDs and UUIDs. Do not invent field rules or website behavior.
+  Follow [Collector implementation rules](how-to-implement-collector.md) for inputs, Internet access, OTP, PDF parsing, state, IDs and UUIDs. Do not invent field rules or website behavior.
 - Implement sign-in, accounts, recurring payments when applicable, then transactions and documents.
   Keep the steps easy to follow. Explain any part that is not implemented yet.
-- **MUST continue past unsupported controls.** When a page or action declares a CAPTCHA, reCAPTCHA, anti-bot check or other control that the collector does not implement, ignore that unsupported step and execute the remaining normal workflow, including submitting the normal request. This is mandatory even when the control appears in the selected action's sequence.
-- **MUST NOT block preemptively.** The presence of an unsupported control must never, by itself, cause a local exception, an early return, a skipped submission, a failed collect or a request for user intervention. Do not infer server rejection from page markup or action metadata. Report a rejection only when the actual server response establishes it.
-- An optional informational log may state: `Unsupported reCAPTCHA step detected; ignoring this step and continuing the normal request.` Do not generate fake challenge results, claim that a challenge succeeded or implement a protection bypass. Continue handling supported authentication steps, including email or SMS codes through `OTPProvider`.
+- Follow the [mandatory rules for unsupported controls](how-to-implement-collector.md#unsupported-controls-mandatory-behavior).
 - Use the generic `com.tibudget.test.simulator.TibuSimulator` supplied by test-utils.
   It discovers the collector through the service registration; do not create a collector-specific launcher or hardcode credentials.
 - Replace or remove demo-specific tests as the starter is adapted. Add focused tests for implemented behavior;
   do not keep a passing demo test as evidence that the new collector works.
+- Don't keep empty directories
 
 Run `mvn verify`. Fix build and test failures before the first live collect.
 
@@ -176,4 +179,4 @@ Add a focused regression test for each bug instead of requiring every possible s
 
 ## Entry prompt
 
-> Read AGENTS.md and follow docs/create-collector.md to adapt this starter for customer account URL `<URL>` with Java package `<PACKAGE>`. Guide me through the first live collect, then use the headless tools to validate and replay it. Explain findings and remaining limits in simple terms.
+> Read docs/how-to-implement-collector.md and AGENTS.md, then follow docs/create-collector.md to adapt this starter for customer account URL `<URL>` with Java package `<PACKAGE>`. Guide me through the first live collect, then use the headless tools to validate and replay it. Explain findings and remaining limits in simple terms.
